@@ -41,24 +41,24 @@ public class RK {
     int n = P.length();
     int hash = -1;
     for(int i=1;i<=n;i++) {
-      if(hash!=-1) hash = hash + ((int) Math.pow(256, n-i)*(int)(P.charAt(i-1)-'a' +1));
-      else hash = ((int) Math.pow(256, n-i)*(int)(P.charAt(i-1)-'a' +1));
+      if(hash!=-1) hash = hash ^ ((int)(P.charAt(i-1)-'a' +1)<<(n-i));
+      else hash = ((int)(P.charAt(i-1)-'a' +1)<<(n-i));
     }
     return hash;
   }
 
-  // public int shiftHash(String T, String P, int oldHash, int idx) {
-  //   int newHash = 10*oldHash;
-  //   newHash = newHash ^ ((int) Math.pow(10, P.length())*(int)(T.charAt(idx-1)-'a' +1));
-  //   newHash = newHash ^ (int)(T.charAt(idx+P.length()-1)-'a' +1);
-  //   return newHash<<P.length();
-  // }
-
   public int shiftHash(String T, String P, int oldHash, int idx) {
-    int newHash = oldHash - ((int) Math.pow(256, P.length()-1)*(int)(T.charAt(idx-1)-'a' +1));
-    newHash = newHash*256;
-    newHash = newHash + (int)(T.charAt(idx+P.length()-1)-'a' +1);
+    int newHash = oldHash<<1;
+    newHash = newHash ^ ((int)(T.charAt(idx-1)-'a' +1)<<(P.length()));
+    newHash = newHash ^ (int)(T.charAt(idx+P.length()-1)-'a' +1);
     return newHash;
   }
+
+  // public int shiftHash(String T, String P, int oldHash, int idx) {
+  //   int newHash = oldHash - ((int) Math.pow(256, P.length()-1)*(int)(T.charAt(idx-1)-'a' +1));
+  //   newHash = newHash*256;
+  //   newHash = newHash + (int)(T.charAt(idx+P.length()-1)-'a' +1);
+  //   return newHash%256;
+  // }
 
 }
