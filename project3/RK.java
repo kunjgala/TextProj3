@@ -8,12 +8,7 @@ public class RK {
     P = P.toLowerCase();
     int n = T.length();
     int m = P.length();
-    // System.out.println("hash pat: " + computeHash(P));
-    // int x = computeHash(T.substring(0,P.length()));
-    // System.out.println(x);
-    // System.out.println(shiftHash(T, P, x, 1));
     int hashP = computeHash(P);
-    // System.out.println("hashp: "+ hashP);
     int f = -1;
     for(int i=0;i<n-m+1;i++) {
       if(i==0) {
@@ -21,11 +16,8 @@ public class RK {
       }
       else {
           f = shiftHash(T, P, f, i);
-          // System.out.println("shift hash for index "+i);
-          // System.out.println("f: "+f);
       }
           if(f==hashP) {
-          //  System.out.println("compared");
             int j =0;
             while(j<m && T.charAt(i+j)==P.charAt(j)) {
               j++;  
@@ -53,12 +45,5 @@ public class RK {
     newHash = newHash ^ (int)(T.charAt(idx+P.length()-1)-'a' +1);
     return newHash;
   }
-
-  // public int shiftHash(String T, String P, int oldHash, int idx) {
-  //   int newHash = oldHash - ((int) Math.pow(256, P.length()-1)*(int)(T.charAt(idx-1)-'a' +1));
-  //   newHash = newHash*256;
-  //   newHash = newHash + (int)(T.charAt(idx+P.length()-1)-'a' +1);
-  //   return newHash%256;
-  // }
 
 }
